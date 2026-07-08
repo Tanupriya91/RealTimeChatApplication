@@ -4,12 +4,14 @@ import { Server } from "socket.io";
 import cors from "cors";
 import dotenv from "dotenv";
 import authMiddleware from "./middleware/authMiddleware.js";
+import roomRoutes from "./routes/rooms.js";
 
 dotenv.config();
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use("/rooms", roomRoutes);
 
 const httpServer = createServer(app);
 
