@@ -1,4 +1,4 @@
-import { admin } from "../config/firebase.js";
+import { auth } from "../config/firebase.js";
 
 const authMiddleware = async (req, res, next) => {
   try {
@@ -13,7 +13,7 @@ const authMiddleware = async (req, res, next) => {
 
     const token = authHeader.split("Bearer ")[1];
 
-    const decodedToken = await admin.auth().verifyIdToken(token);
+    const decodedToken = await auth.verifyIdToken(token);
 
     req.user = decodedToken;
 

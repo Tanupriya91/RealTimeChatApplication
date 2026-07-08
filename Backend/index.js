@@ -3,6 +3,7 @@ import { createServer } from "http";
 import { Server } from "socket.io";
 import cors from "cors";
 import dotenv from "dotenv";
+import authMiddleware from "./middleware/authMiddleware.js";
 
 dotenv.config();
 const app = express();
@@ -22,6 +23,14 @@ app.get("/health", (req,res)=>{
     res.status(200).json({
         success: true,
         message: "Server is running",
+    });
+});
+
+app.get("/protected", authMiddleware, (req, res) => {
+    res.status(200).json({
+        success: true,
+        message: "You are authenticated",
+        user: req.user,
     });
 });
 
