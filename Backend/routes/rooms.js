@@ -27,4 +27,33 @@ router.get("/", authMiddleware, async (req, res) => {
   }
 });
 
+router.get("/:roomId/messages", authMiddleware, async (req, res) => {
+  try {
+    const { roomId } = req.params;
+    const snapshot = await db
+      .collection("rooms")
+      .doc(roomId)
+      .collection("messages")
+      .orderBy("timestamp", "desc")
+      .limit(20)
+      .get();
+
+    const message = snapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    return res.status(200).json({
+      success: true,
+      message,
+    });
+  } catch (error) {
+    console.error("Error fetching messages:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to fetch messages",
+    });
+  }
+});
+
 export default router;
