@@ -5,6 +5,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import authMiddleware from "./middleware/authMiddleware.js";
 import roomRoutes from "./routes/rooms.js";
+import initializeSocket from "./sockets/index.js";
 
 dotenv.config();
 const app = express();
@@ -20,6 +21,7 @@ const io = new Server(httpServer,{
         origin: "*",
     },
 });
+initializeSocket(io);
 
 app.get("/health", (req,res)=>{
     res.status(200).json({
