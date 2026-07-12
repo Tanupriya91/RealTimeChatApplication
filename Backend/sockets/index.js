@@ -1,4 +1,4 @@
-import socketAuthMiddleware from "./authMiddleware";
+import socketAuthMiddleware from "./authMiddleware.js";
 const initializeSocket = (io) => {
     io.use(socketAuthMiddleware);
   io.on("connection", (socket) => {

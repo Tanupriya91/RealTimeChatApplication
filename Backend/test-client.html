@@ -10,7 +10,7 @@
   <h1>Socket.IO Test Client</h1>
 
   <p id="status">Disconnected</p>
-
+<!-- 
   <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
 
   <script>
@@ -30,6 +30,40 @@
       document.getElementById("status").innerText =
         "Disconnected";
     });
-  </script>
+  </script> -->
+
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+
+<script>
+  const TOKEN = "eyJhbGciOiJSUzI1NiIsImtpZCI6IjY1Y2IzZjAyMGNhZjdiMmE5ZTg2ZWFkOTAxZDg5ZjQ4MTJjYmFjYmMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcmVhbHRpbWVjaGF0YXBwbGljYXRpb24tODUwMWQiLCJhdWQiOiJyZWFsdGltZWNoYXRhcHBsaWNhdGlvbi04NTAxZCIsImF1dGhfdGltZSI6MTc4Mzg1MzE5MSwidXNlcl9pZCI6Ikh5Z1VBSzVHeHJPNnA4b0hLc3NYRXRodzV4VzIiLCJzdWIiOiJIeWdVQUs1R3hyTzZwOG9IS3NzWEV0aHc1eFcyIiwiaWF0IjoxNzgzODUzMTkxLCJleHAiOjE3ODM4NTY3OTEsImVtYWlsIjoidGVzdHVzZXJAZXhhbXBsZS5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsidGVzdHVzZXJAZXhhbXBsZS5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.YuVw1UFA-XTnzBAQgw8SdxtB8sjbpluX7pRQR8WlkQnvDILF-jSnIPGn-v7bz99ga6FyJL-0Rd5Aeb_KhQ_wJoeAiL6tRWW3o3pmTPaDW_U-Bx4pgXcPzKdWt8ED7ejxZreWk5yRFtgizBF_UqiYaU48ZwtaQc82olh73Rdj3MP92msy5wrYz0r4POjS7R5Y3E2UkE6CsKy9Yxj3e-7x-kGxeHU0AWBb0rv9s3l3ccvPPlJF_MijVkHWmpv6sZZzKskZ6Kk4xp-nkZia6VkM1jZuAPCIHaxFcDtfhnAtZszDt7yfuQBRQ7Ngh1C8jFeyjR0_770VZNS7gl57zCnilg";
+
+  const socket = io("http://localhost:3000", {
+    auth: {
+      token: TOKEN,
+    },
+  });
+
+  socket.on("connect", () => {
+    console.log("Connected to server");
+    console.log("Socket ID:", socket.id);
+
+    document.getElementById("status").innerText =
+      `Connected: ${socket.id}`;
+  });
+
+  socket.on("disconnect", () => {
+    console.log("Disconnected from server");
+
+    document.getElementById("status").innerText =
+      "Disconnected";
+  });
+
+  socket.on("connect_error", (error) => {
+    console.error("Connection failed:", error.message);
+
+    document.getElementById("status").innerText =
+      `Connection failed: ${error.message}`;
+  });
+</script>
 </body>
 </html>
