@@ -125,6 +125,31 @@ socket.on("leave_room", async (data, callback) => {
     }
 });
 
+socket.on("typing_start", (data) => {
+  const { roomId } = data;
+
+  if (!roomId || !socket.rooms.has(roomId)) {
+    return;
+  }
+
+  socket.to(roomId).emit("user_typing", {
+    userId: socket.data.user.uid,
+    userName: socket.data.user.email || "Unknown User",
+  });
+});
+
+socket.on("typing_stop", (data) => {
+  const { roomId } = data;
+
+  if (!roomId || !socket.rooms.has(roomId)) {
+    return;
+  }
+
+  socket.to(roomId).emit("user_stopped_typing", {
+    userId: socket.data.user.uid,
+  });
+});
+
 };
 
 export default registerRoomHandlers;
