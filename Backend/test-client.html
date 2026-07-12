@@ -26,13 +26,14 @@
   <button id="sendButton">
     Send Message
   </button>
+  <button id="leaveButton">Leave Room</button>
 
 
   <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
 
   <script>
 
-    const TOKEN = "eyJhbGciOiJSUzI1NiIsImtpZCI6IjY1Y2IzZjAyMGNhZjdiMmE5ZTg2ZWFkOTAxZDg5ZjQ4MTJjYmFjYmMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcmVhbHRpbWVjaGF0YXBwbGljYXRpb24tODUwMWQiLCJhdWQiOiJyZWFsdGltZWNoYXRhcHBsaWNhdGlvbi04NTAxZCIsImF1dGhfdGltZSI6MTc4Mzg1ODMwOCwidXNlcl9pZCI6Ikh5Z1VBSzVHeHJPNnA4b0hLc3NYRXRodzV4VzIiLCJzdWIiOiJIeWdVQUs1R3hyTzZwOG9IS3NzWEV0aHc1eFcyIiwiaWF0IjoxNzgzODU4MzA4LCJleHAiOjE3ODM4NjE5MDgsImVtYWlsIjoidGVzdHVzZXJAZXhhbXBsZS5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsidGVzdHVzZXJAZXhhbXBsZS5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.QeeKfU6M0vCaD8uCLLM1uHv3SsZ22ywe8CvjUKiO7zl4Sf-UJDCVVJ2GM_C6INGaoNtDtsaSK-bqGfQYUhZ4RS0unNqtq_FnbN23Rd5PqT_zBqFtGBuQYKgNaRz4d2-zXB8PCnFpobKyvPUf-uOtdrTFoUizugGjaYXbRGjUAdUz_zKmj_n8FJDMIZz3m4bNIu-1zblTTWi7d8okmK5vfn-z7wRyWu04FK2on8VTqXAMqtLS9Zpnmp_fMQ1kSgf6Q_ImS0jCirR0oQEVRv74tjdNjorLaI-DmiLPXS1h_DVb4uMmpcNEM3P8vWVcVecy5JP4y35ctTVdABvF85YDpQ";
+    const TOKEN = "";
 
     const ROOM_ID = "generatedId1";
 
@@ -80,7 +81,19 @@
 
     });
 
-
+document
+  .getElementById("leaveButton")
+  .addEventListener("click", () => {
+    socket.emit(
+      "leave_room",
+      {
+        roomId: ROOM_ID,
+      },
+      (response) => {
+        console.log("Leave room response:", response);
+      }
+    );
+  });
 
     // -----------------------------
     // SEND MESSAGE

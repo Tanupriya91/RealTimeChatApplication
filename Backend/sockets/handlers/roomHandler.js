@@ -92,6 +92,39 @@ socket.on("send_message", async (data, callback) => {
 });
 
 
+socket.on("leave_room", async (data, callback) => {
+    try{
+        const { roomId } = data;
+        if(!roomId){
+            return callback({
+                success: false,
+                message: "Room ID is required",
+            });
+        }
+        if(!socket.rooms.has(roomId)){
+            return callback({
+                success: false,
+                message: "You are not in this room",
+            });
+        }
+        await socket.leave(roomId);
+        console.log(`${socket.id} left room ${roomId}`);
+        return callback({
+            success: true,
+            message: "Room left successfully",
+            roomId,
+        });
+    }
+    catch(error){
+        console.error("Error leaving room:", error);
+        return callback({
+            success: false,
+            message: "Failed to leave room",
+        });
+
+    }
+});
+
 };
 
 export default registerRoomHandlers;
