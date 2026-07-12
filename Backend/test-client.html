@@ -24,7 +24,7 @@
 
     <script>
       const TOKEN =
-        "";
+        "eyJhbGciOiJSUzI1NiIsImtpZCI6IjY1Y2IzZjAyMGNhZjdiMmE5ZTg2ZWFkOTAxZDg5ZjQ4MTJjYmFjYmMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcmVhbHRpbWVjaGF0YXBwbGljYXRpb24tODUwMWQiLCJhdWQiOiJyZWFsdGltZWNoYXRhcHBsaWNhdGlvbi04NTAxZCIsImF1dGhfdGltZSI6MTc4Mzg4MjYyMSwidXNlcl9pZCI6Ikh5Z1VBSzVHeHJPNnA4b0hLc3NYRXRodzV4VzIiLCJzdWIiOiJIeWdVQUs1R3hyTzZwOG9IS3NzWEV0aHc1eFcyIiwiaWF0IjoxNzgzODgyNjIxLCJleHAiOjE3ODM4ODYyMjEsImVtYWlsIjoidGVzdHVzZXJAZXhhbXBsZS5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsidGVzdHVzZXJAZXhhbXBsZS5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.gTtlbFZR5iNMzLsK3dVNLo3EIL9uRKNMb23OW_qIcgOnUBhosSLaLhiWxspE6Dl8IApE_61j77Mdbols_M-HdXQuyJ2RrQL2arbu8mO6zhzajd2pPRne1u62xiwFHfCf4T1bySi_PPfh4x1Ak-ZZ2MC6ruHukIiTlAVX_uO2j3ygDwKL9SZbHWxzq8vywtS_OmGKaEXYnH8ORRyIjwGy34gNhYwu1NBWezltXAsDp2lEE5dMhsrCLIPYXbo9_lcZVrkIguK-8jsRepHMnxzqbzzFK6FVjUVvyJaJVuGSiMLJJpRdof3Fygeu8RFKV_0iBvzrNkzYZ8blRIyHwoNKPA";
       const ROOM_ID = "generatedId1";
 
       // Connect to Socket.IO server
@@ -129,8 +129,6 @@
           `Connection failed: ${error.message}`;
       });
 
-      
-
       const messageInput = document.getElementById("messageInput");
 
       messageInput.addEventListener("input", () => {
@@ -171,6 +169,18 @@
         console.log("User stopped typing:", data);
 
         document.getElementById("typingStatus").innerText = "";
+      });
+
+      socket.on("online_users", (data) => {
+        console.log("Currently online users:", data.users);
+      });
+
+      socket.on("user_online", (data) => {
+        console.log("User came online:", data.userId);
+      });
+
+      socket.on("user_offline", (data) => {
+        console.log("User went offline:", data.userId);
       });
     </script>
   </body>
