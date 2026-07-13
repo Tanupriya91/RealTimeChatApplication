@@ -31,8 +31,18 @@ const getOnlineUsers = () => {
   return Array.from(onlineUsers.keys());
 };
 
+// Get all active socket IDs of a specific user
+const getUserSockets = (userId) => {
+  if (!onlineUsers.has(userId)) {
+    return [];
+  }
+
+  return Array.from(onlineUsers.get(userId));
+};
+
 export {
   addUser,
   removeUser,
   getOnlineUsers,
+  getUserSockets,
 };
