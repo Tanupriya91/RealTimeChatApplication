@@ -203,6 +203,69 @@ const registerRoomHandlers = (io, socket) => {
       });
     }
   });
+
+  socket.on("delete_message", async (data, callback) => {
+    try {
+      const { roomId, messageId } = data;
+
+      if (!roomId || !messageId) {
+        return callback({
+          success: false,
+          message: "Room ID and message ID are required",
+        });
+      }
+
+      if (!socket.rooms.has(roomId)) {
+        return callback({
+          success: false,
+          message: "You must join the room first",
+        });
+      }
+
+      const messageRef = db
+        .collection("rooms")
+        .doc(roomId)
+        .collection("messages")
+        .doc(messageId);
+
+      const messageDoc = await messageRef.get();
+
+      if (!messageDoc.exists) {
+        return callback({
+          success: false,
+          message: "Message not found",
+        });
+      }
+
+      const messageData = messageDoc.data();
+
+      if (messageData.senderId !== socket.data.user.uid) {
+        return callback({
+          success: false,
+          message: "You can only delete your own messages",
+        });
+      }
+
+      await messageRef.delete();
+
+      io.to(roomId).emit("message_deleted", {
+        roomId,
+        messageId,
+      });
+
+      return callback({
+        success: true,
+        message: "Message deleted successfully",
+      });
+    } catch (error) {
+      console.error("Error deleting message:", error);
+
+      return callback({
+        success: false,
+        message: "Failed to delete message",
+      });
+    }
+  });
 };
 
 export default registerRoomHandlers;

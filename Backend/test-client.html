@@ -21,7 +21,8 @@
     <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
 
     <script>
-      const TOKEN = "eyJhbGciOiJSUzI1NiIsImtpZCI6IjY1Y2IzZjAyMGNhZjdiMmE5ZTg2ZWFkOTAxZDg5ZjQ4MTJjYmFjYmMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcmVhbHRpbWVjaGF0YXBwbGljYXRpb24tODUwMWQiLCJhdWQiOiJyZWFsdGltZWNoYXRhcHBsaWNhdGlvbi04NTAxZCIsImF1dGhfdGltZSI6MTc4MzkzNDI5NiwidXNlcl9pZCI6Ikh5Z1VBSzVHeHJPNnA4b0hLc3NYRXRodzV4VzIiLCJzdWIiOiJIeWdVQUs1R3hyTzZwOG9IS3NzWEV0aHc1eFcyIiwiaWF0IjoxNzgzOTM0Mjk2LCJleHAiOjE3ODM5Mzc4OTYsImVtYWlsIjoidGVzdHVzZXJAZXhhbXBsZS5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsidGVzdHVzZXJAZXhhbXBsZS5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.sVZztPAB2GqhGW5O4Muy3z8FJmaePht_gT_8QbTqWhV2FYcECJRLTFVjYFdBsP3g_sFz4h_739oHwkTOroDXva_R9pj2J9AfDgQ_SzmtJQiu7_XBptZMSmnJYKFo0Du5lsUBwiOOxAtvbkGd_YIFDjNdMoSBTNWGn_3867kh4tiS51wNUAvngJZ88o2xyHqI61Ic32-Z8nfn7uR_f-3bl30vx_x9hOXWtBLnXnB4O-gJLF_eBhWP53NRZiuSEBkcczuIeNIzBdkj-E0JcsePgqTAWqiaKZyYI7f4p7rGg-Vd2Pn-vbVo9kzDmUPNsB0tn-K8s-TmtKOATYOeu3QeaQ";
+      const TOKEN =
+        "eyJhbGciOiJSUzI1NiIsImtpZCI6IjY1Y2IzZjAyMGNhZjdiMmE5ZTg2ZWFkOTAxZDg5ZjQ4MTJjYmFjYmMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcmVhbHRpbWVjaGF0YXBwbGljYXRpb24tODUwMWQiLCJhdWQiOiJyZWFsdGltZWNoYXRhcHBsaWNhdGlvbi04NTAxZCIsImF1dGhfdGltZSI6MTc4MzkzODYzNywidXNlcl9pZCI6Ikh5Z1VBSzVHeHJPNnA4b0hLc3NYRXRodzV4VzIiLCJzdWIiOiJIeWdVQUs1R3hyTzZwOG9IS3NzWEV0aHc1eFcyIiwiaWF0IjoxNzgzOTM4NjM3LCJleHAiOjE3ODM5NDIyMzcsImVtYWlsIjoidGVzdHVzZXJAZXhhbXBsZS5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsidGVzdHVzZXJAZXhhbXBsZS5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.CicrIy-Gw1wA9XOaNQuHMk25a2fOxv1IfyyLDFWagn-CCeizerSzfbytY6VLTKu_yPu5mGDdTagpwShvKnTq7lZKMyCnHRsqI2KggL7pNbymayR57dTW3K_65sXYa3PH4nXLwfc0lE0pwSuk7BW2AMlFAnILc8SvT3a75wbOmYCw1Xi4peUw8b1mhbZApALugyx_FbXYN2EyJWneJX62ozjH16QVonG3DHZa8GlpDtu0s1lLl8nETerjHfyAPcpVxDm52W419yOAaz41ePkPk9rc4Kiv9VipPUXECyW6lQx-3Rf7OyxkFNivBArflVGfXb3Gv-Di5HLp63hqGDuKDQ";
 
       const ROOM_ID = "generatedId1";
 
@@ -39,18 +40,13 @@
 
       const status = document.getElementById("status");
 
-      const messageInput =
-        document.getElementById("messageInput");
+      const messageInput = document.getElementById("messageInput");
 
-      const typingStatus =
-        document.getElementById("typingStatus");
+      const typingStatus = document.getElementById("typingStatus");
 
-      const sendButton =
-        document.getElementById("sendButton");
+      const sendButton = document.getElementById("sendButton");
 
-      const leaveButton =
-        document.getElementById("leaveButton");
-
+      const leaveButton = document.getElementById("leaveButton");
 
       // ----------------------------------
       // SOCKET CONNECTED
@@ -60,9 +56,7 @@
         console.log("Connected to server");
         console.log("Socket ID:", socket.id);
 
-        status.innerText =
-          `Connected: ${socket.id}`;
-
+        status.innerText = `Connected: ${socket.id}`;
 
         // Join room
 
@@ -72,11 +66,7 @@
             roomId: ROOM_ID,
           },
           (response) => {
-            console.log(
-              "Join room response:",
-              response
-            );
-
+            console.log("Join room response:", response);
 
             // Mark message as read
             // only after successfully joining
@@ -89,17 +79,86 @@
                   messageId: MESSAGE_ID,
                 },
                 (readResponse) => {
-                  console.log(
-                    "Mark read response:",
-                    readResponse
-                  );
-                }
+                  console.log("Mark read response:", readResponse);
+                },
               );
+              socket.emit(
+                "delete_message",
+                {
+                  roomId: ROOM_ID,
+                  messageId: "7cKzU9p2ximPGgTpCzeh",
+                },
+                (deleteResponse) => {
+                  console.log("Delete message response:", deleteResponse);
+                },
+              );
+
+              socket.on("delete_message", async (data, callback) => {
+                try {
+                  const { roomId, messageId } = data;
+
+                  if (!roomId || !messageId) {
+                    return callback({
+                      success: false,
+                      message: "Room ID and message ID are required",
+                    });
+                  }
+
+                  if (!socket.rooms.has(roomId)) {
+                    return callback({
+                      success: false,
+                      message: "You must join the room first",
+                    });
+                  }
+
+                  const messageRef = db
+                    .collection("rooms")
+                    .doc(roomId)
+                    .collection("messages")
+                    .doc(messageId);
+
+                  const messageDoc = await messageRef.get();
+
+                  if (!messageDoc.exists) {
+                    return callback({
+                      success: false,
+                      message: "Message not found",
+                    });
+                  }
+
+                  const messageData = messageDoc.data();
+
+                  if (messageData.senderId !== socket.data.user.uid) {
+                    return callback({
+                      success: false,
+                      message: "You can only delete your own messages",
+                    });
+                  }
+
+                  await messageRef.delete();
+
+                  io.to(roomId).emit("message_deleted", {
+                    roomId,
+                    messageId,
+                  });
+
+                  return callback({
+                    success: true,
+                    message: "Message deleted successfully",
+                  });
+                } catch (error) {
+                  console.error("Error deleting message:", error);
+
+                  return callback({
+                    success: false,
+                    message: "Failed to delete message",
+                  });
+                }
+              });
             }
-          }
+          },
         );
       });
-
 
       // ----------------------------------
       // SEND MESSAGE
@@ -115,30 +174,25 @@
             text,
           },
           (response) => {
-            console.log(
-              "Send message response:",
-              response
-            );
+            console.log("Send message response:", response);
 
             if (response.success) {
               messageInput.value = "";
             }
-          }
+          },
         );
       });
-
 
       // ----------------------------------
       // RECEIVE NEW MESSAGE
       // ----------------------------------
 
       socket.on("new_message", (message) => {
-        console.log(
-          "New message received:",
-          message
-        );
+        console.log("New message received:", message);
       });
-
+      socket.on("message_deleted", (data) => {
+        console.log("Message deleted event:", data);
+      });
 
       // ----------------------------------
       // LEAVE ROOM
@@ -151,14 +205,10 @@
             roomId: ROOM_ID,
           },
           (response) => {
-            console.log(
-              "Leave room response:",
-              response
-            );
-          }
+            console.log("Leave room response:", response);
+          },
         );
       });
-
 
       // ----------------------------------
       // TYPING INDICATOR
@@ -180,7 +230,6 @@
         }, 1500);
       });
 
-
       // ----------------------------------
       // USER TYPING
       // ----------------------------------
@@ -188,106 +237,71 @@
       socket.on("user_typing", (data) => {
         console.log("User typing:", data);
 
-        typingStatus.innerText =
-          `${data.userName} is typing...`;
+        typingStatus.innerText = `${data.userName} is typing...`;
       });
-
 
       // ----------------------------------
       // USER STOPPED TYPING
       // ----------------------------------
 
-      socket.on(
-        "user_stopped_typing",
-        (data) => {
-          console.log(
-            "User stopped typing:",
-            data
-          );
+      socket.on("user_stopped_typing", (data) => {
+        console.log("User stopped typing:", data);
 
-          typingStatus.innerText = "";
-        }
-      );
-
+        typingStatus.innerText = "";
+      });
 
       // ----------------------------------
       // ONLINE USERS
       // ----------------------------------
 
       socket.on("online_users", (data) => {
-        console.log(
-          "Currently online users:",
-          data.users
-        );
+        console.log("Currently online users:", data.users);
       });
-
 
       // ----------------------------------
       // USER ONLINE
       // ----------------------------------
 
       socket.on("user_online", (data) => {
-        console.log(
-          "User came online:",
-          data.userId
-        );
+        console.log("User came online:", data.userId);
       });
-
 
       // ----------------------------------
       // USER OFFLINE
       // ----------------------------------
 
       socket.on("user_offline", (data) => {
-        console.log(
-          "User went offline:",
-          data.userId
-        );
+        console.log("User went offline:", data.userId);
       });
-
 
       // ----------------------------------
       // MESSAGE READ
       // ----------------------------------
 
       socket.on("message_read", (data) => {
-        console.log(
-          "Message read event:",
-          data
-        );
+        console.log("Message read event:", data);
       });
-
 
       // ----------------------------------
       // SOCKET DISCONNECTED
       // ----------------------------------
 
       socket.on("disconnect", (reason) => {
-        console.log(
-          "Disconnected from server"
-        );
+        console.log("Disconnected from server");
 
-        console.log(
-          "Reason:",
-          reason
-        );
+        console.log("Reason:", reason);
 
         status.innerText = "Disconnected";
       });
-
 
       // ----------------------------------
       // CONNECTION ERROR
       // ----------------------------------
 
       socket.on("connect_error", (error) => {
-        console.error(
-          "Connection failed:",
-          error.message
-        );
+        console.error("Connection failed:", error.message);
 
-        status.innerText =
-          `Connection failed: ${error.message}`;
+        status.innerText = `Connection failed: ${error.message}`;
       });
     </script>
   </body>
