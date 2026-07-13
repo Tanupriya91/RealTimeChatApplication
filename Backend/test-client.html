@@ -2,9 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <title>Socket.IO Test Client</title>
   </head>
 
@@ -14,173 +12,282 @@
     <p id="status">Disconnected</p>
 
     <input id="messageInput" type="text" placeholder="Enter message" />
+
     <p id="typingStatus"></p>
 
     <button id="sendButton">Send Message</button>
-
     <button id="leaveButton">Leave Room</button>
 
     <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
 
     <script>
-      const TOKEN =
-        "eyJhbGciOiJSUzI1NiIsImtpZCI6IjY1Y2IzZjAyMGNhZjdiMmE5ZTg2ZWFkOTAxZDg5ZjQ4MTJjYmFjYmMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcmVhbHRpbWVjaGF0YXBwbGljYXRpb24tODUwMWQiLCJhdWQiOiJyZWFsdGltZWNoYXRhcHBsaWNhdGlvbi04NTAxZCIsImF1dGhfdGltZSI6MTc4Mzg4MjYyMSwidXNlcl9pZCI6Ikh5Z1VBSzVHeHJPNnA4b0hLc3NYRXRodzV4VzIiLCJzdWIiOiJIeWdVQUs1R3hyTzZwOG9IS3NzWEV0aHc1eFcyIiwiaWF0IjoxNzgzODgyNjIxLCJleHAiOjE3ODM4ODYyMjEsImVtYWlsIjoidGVzdHVzZXJAZXhhbXBsZS5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsidGVzdHVzZXJAZXhhbXBsZS5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.gTtlbFZR5iNMzLsK3dVNLo3EIL9uRKNMb23OW_qIcgOnUBhosSLaLhiWxspE6Dl8IApE_61j77Mdbols_M-HdXQuyJ2RrQL2arbu8mO6zhzajd2pPRne1u62xiwFHfCf4T1bySi_PPfh4x1Ak-ZZ2MC6ruHukIiTlAVX_uO2j3ygDwKL9SZbHWxzq8vywtS_OmGKaEXYnH8ORRyIjwGy34gNhYwu1NBWezltXAsDp2lEE5dMhsrCLIPYXbo9_lcZVrkIguK-8jsRepHMnxzqbzzFK6FVjUVvyJaJVuGSiMLJJpRdof3Fygeu8RFKV_0iBvzrNkzYZ8blRIyHwoNKPA";
+      const TOKEN = "eyJhbGciOiJSUzI1NiIsImtpZCI6IjY1Y2IzZjAyMGNhZjdiMmE5ZTg2ZWFkOTAxZDg5ZjQ4MTJjYmFjYmMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcmVhbHRpbWVjaGF0YXBwbGljYXRpb24tODUwMWQiLCJhdWQiOiJyZWFsdGltZWNoYXRhcHBsaWNhdGlvbi04NTAxZCIsImF1dGhfdGltZSI6MTc4MzkzNDI5NiwidXNlcl9pZCI6Ikh5Z1VBSzVHeHJPNnA4b0hLc3NYRXRodzV4VzIiLCJzdWIiOiJIeWdVQUs1R3hyTzZwOG9IS3NzWEV0aHc1eFcyIiwiaWF0IjoxNzgzOTM0Mjk2LCJleHAiOjE3ODM5Mzc4OTYsImVtYWlsIjoidGVzdHVzZXJAZXhhbXBsZS5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsidGVzdHVzZXJAZXhhbXBsZS5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.sVZztPAB2GqhGW5O4Muy3z8FJmaePht_gT_8QbTqWhV2FYcECJRLTFVjYFdBsP3g_sFz4h_739oHwkTOroDXva_R9pj2J9AfDgQ_SzmtJQiu7_XBptZMSmnJYKFo0Du5lsUBwiOOxAtvbkGd_YIFDjNdMoSBTNWGn_3867kh4tiS51wNUAvngJZ88o2xyHqI61Ic32-Z8nfn7uR_f-3bl30vx_x9hOXWtBLnXnB4O-gJLF_eBhWP53NRZiuSEBkcczuIeNIzBdkj-E0JcsePgqTAWqiaKZyYI7f4p7rGg-Vd2Pn-vbVo9kzDmUPNsB0tn-K8s-TmtKOATYOeu3QeaQ";
+
       const ROOM_ID = "generatedId1";
 
-      // Connect to Socket.IO server
+      const MESSAGE_ID = "7cKzU9p2ximPGgTpCzeh";
+
       const socket = io("http://localhost:3000", {
         auth: {
           token: TOKEN,
         },
       });
 
-      // -----------------------------
+      // ----------------------------------
+      // HTML ELEMENTS
+      // ----------------------------------
+
+      const status = document.getElementById("status");
+
+      const messageInput =
+        document.getElementById("messageInput");
+
+      const typingStatus =
+        document.getElementById("typingStatus");
+
+      const sendButton =
+        document.getElementById("sendButton");
+
+      const leaveButton =
+        document.getElementById("leaveButton");
+
+
+      // ----------------------------------
       // SOCKET CONNECTED
-      // -----------------------------
+      // ----------------------------------
 
       socket.on("connect", () => {
         console.log("Connected to server");
-
         console.log("Socket ID:", socket.id);
 
-        document.getElementById("status").innerText = `Connected: ${socket.id}`;
+        status.innerText =
+          `Connected: ${socket.id}`;
 
-        // Join the chat room
+
+        // Join room
+
         socket.emit(
           "join_room",
-
           {
             roomId: ROOM_ID,
           },
-
           (response) => {
-            console.log("Join room response:", response);
-          },
+            console.log(
+              "Join room response:",
+              response
+            );
+
+
+            // Mark message as read
+            // only after successfully joining
+
+            if (response.success) {
+              socket.emit(
+                "mark_read",
+                {
+                  roomId: ROOM_ID,
+                  messageId: MESSAGE_ID,
+                },
+                (readResponse) => {
+                  console.log(
+                    "Mark read response:",
+                    readResponse
+                  );
+                }
+              );
+            }
+          }
         );
       });
 
-      document.getElementById("leaveButton").addEventListener("click", () => {
+
+      // ----------------------------------
+      // SEND MESSAGE
+      // ----------------------------------
+
+      sendButton.addEventListener("click", () => {
+        const text = messageInput.value;
+
+        socket.emit(
+          "send_message",
+          {
+            roomId: ROOM_ID,
+            text,
+          },
+          (response) => {
+            console.log(
+              "Send message response:",
+              response
+            );
+
+            if (response.success) {
+              messageInput.value = "";
+            }
+          }
+        );
+      });
+
+
+      // ----------------------------------
+      // RECEIVE NEW MESSAGE
+      // ----------------------------------
+
+      socket.on("new_message", (message) => {
+        console.log(
+          "New message received:",
+          message
+        );
+      });
+
+
+      // ----------------------------------
+      // LEAVE ROOM
+      // ----------------------------------
+
+      leaveButton.addEventListener("click", () => {
         socket.emit(
           "leave_room",
           {
             roomId: ROOM_ID,
           },
           (response) => {
-            console.log("Leave room response:", response);
-          },
+            console.log(
+              "Leave room response:",
+              response
+            );
+          }
         );
       });
 
-      // -----------------------------
-      // SEND MESSAGE
-      // -----------------------------
 
-      document.getElementById("sendButton").addEventListener("click", () => {
-        const messageInput = document.getElementById("messageInput");
+      // ----------------------------------
+      // TYPING INDICATOR
+      // ----------------------------------
 
-        const text = messageInput.value;
-
-        socket.emit(
-          "send_message",
-
-          {
-            roomId: ROOM_ID,
-            text: text,
-          },
-
-          (response) => {
-            console.log("Send message response:", response);
-
-            if (response.success) {
-              messageInput.value = "";
-            }
-          },
-        );
-      });
-
-      // -----------------------------
-      // RECEIVE NEW MESSAGE
-      // -----------------------------
-
-      socket.on("new_message", (message) => {
-        console.log("New message received:", message);
-      });
-
-      // -----------------------------
-      // SOCKET DISCONNECTED
-      // -----------------------------
-
-      socket.on("disconnect", (reason) => {
-        console.log("Disconnected from server");
-
-        console.log("Reason:", reason);
-
-        document.getElementById("status").innerText = "Disconnected";
-      });
-
-      // -----------------------------
-      // CONNECTION ERROR
-      // -----------------------------
-
-      socket.on("connect_error", (error) => {
-        console.error("Connection failed:", error.message);
-
-        document.getElementById("status").innerText =
-          `Connection failed: ${error.message}`;
-      });
-
-      const messageInput = document.getElementById("messageInput");
+      let typingTimer;
 
       messageInput.addEventListener("input", () => {
         socket.emit("typing_start", {
           roomId: ROOM_ID,
         });
+
+        clearTimeout(typingTimer);
+
+        typingTimer = setTimeout(() => {
+          socket.emit("typing_stop", {
+            roomId: ROOM_ID,
+          });
+        }, 1500);
       });
 
-      messageInput.addEventListener("blur", () => {
-        console.log("Input lost focus");
 
-        socket.emit("typing_stop", {
-          roomId: ROOM_ID,
-        });
-      });
+      // ----------------------------------
+      // USER TYPING
+      // ----------------------------------
 
       socket.on("user_typing", (data) => {
         console.log("User typing:", data);
 
-        document.getElementById("typingStatus").innerText =
+        typingStatus.innerText =
           `${data.userName} is typing...`;
       });
 
-      socket.on("user_stopped_typing", (data) => {
-        console.log("User stopped typing:", data);
 
-        document.getElementById("typingStatus").innerText = "";
-      });
+      // ----------------------------------
+      // USER STOPPED TYPING
+      // ----------------------------------
 
-      socket.on("user_typing", (data) => {
-        console.log("User typing:", data);
+      socket.on(
+        "user_stopped_typing",
+        (data) => {
+          console.log(
+            "User stopped typing:",
+            data
+          );
 
-        document.getElementById("typingStatus").innerText =
-          `${data.userName} is typing...`;
-      });
+          typingStatus.innerText = "";
+        }
+      );
 
-      socket.on("user_stopped_typing", (data) => {
-        console.log("User stopped typing:", data);
 
-        document.getElementById("typingStatus").innerText = "";
-      });
+      // ----------------------------------
+      // ONLINE USERS
+      // ----------------------------------
 
       socket.on("online_users", (data) => {
-        console.log("Currently online users:", data.users);
+        console.log(
+          "Currently online users:",
+          data.users
+        );
       });
+
+
+      // ----------------------------------
+      // USER ONLINE
+      // ----------------------------------
 
       socket.on("user_online", (data) => {
-        console.log("User came online:", data.userId);
+        console.log(
+          "User came online:",
+          data.userId
+        );
       });
 
+
+      // ----------------------------------
+      // USER OFFLINE
+      // ----------------------------------
+
       socket.on("user_offline", (data) => {
-        console.log("User went offline:", data.userId);
+        console.log(
+          "User went offline:",
+          data.userId
+        );
+      });
+
+
+      // ----------------------------------
+      // MESSAGE READ
+      // ----------------------------------
+
+      socket.on("message_read", (data) => {
+        console.log(
+          "Message read event:",
+          data
+        );
+      });
+
+
+      // ----------------------------------
+      // SOCKET DISCONNECTED
+      // ----------------------------------
+
+      socket.on("disconnect", (reason) => {
+        console.log(
+          "Disconnected from server"
+        );
+
+        console.log(
+          "Reason:",
+          reason
+        );
+
+        status.innerText = "Disconnected";
+      });
+
+
+      // ----------------------------------
+      // CONNECTION ERROR
+      // ----------------------------------
+
+      socket.on("connect_error", (error) => {
+        console.error(
+          "Connection failed:",
+          error.message
+        );
+
+        status.innerText =
+          `Connection failed: ${error.message}`;
       });
     </script>
   </body>
