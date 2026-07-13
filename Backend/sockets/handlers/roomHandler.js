@@ -266,6 +266,82 @@ const registerRoomHandlers = (io, socket) => {
       });
     }
   });
+
+  socket.on("edit_message", async (data, callback) => {
+  try {
+    const { roomId, messageId, newText } = data;
+
+    if (!roomId || !messageId || !newText?.trim()) {
+      return callback({
+        success: false,
+        message: "Room ID, message ID, and new text are required",
+      });
+    }
+
+    if (!socket.rooms.has(roomId)) {
+      return callback({
+        success: false,
+        message: "You must join the room first",
+      });
+    }
+
+    const messageRef = db
+      .collection("rooms")
+      .doc(roomId)
+      .collection("messages")
+      .doc(messageId);
+
+    const messageDoc = await messageRef.get();
+
+    if (!messageDoc.exists) {
+      return callback({
+        success: false,
+        message: "Message not found",
+      });
+    }
+
+    const messageData = messageDoc.data();
+
+    if (messageData.senderId !== socket.data.user.uid) {
+      return callback({
+        success: false,
+        message: "You can only edit your own messages",
+      });
+    }
+
+    const updatedData = {
+      text: newText.trim(),
+      edited: true,
+      editedAt: new Date(),
+    };
+
+    await messageRef.update(updatedData);
+
+    const updatedMessage = {
+      id: messageId,
+      ...messageData,
+      ...updatedData,
+    };
+
+    io.to(roomId).emit("message_edited", {
+      roomId,
+      message: updatedMessage,
+    });
+
+    return callback({
+      success: true,
+      message: "Message edited successfully",
+      data: updatedMessage,
+    });
+  } catch (error) {
+    console.error("Error editing message:", error);
+
+    return callback({
+      success: false,
+      message: "Failed to edit message",
+    });
+  }
+});
 };
 
 export default registerRoomHandlers;
